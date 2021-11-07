@@ -1,5 +1,6 @@
 import axios from "axios";
 var API_URL = 'https://crypto-bot-stefanini.herokuapp.com/api';
+var API_URL_TEST = "http://localhost:3000/api";
 
 export class Api {   
     constructor(key) {
@@ -48,7 +49,7 @@ export class Api {
 
     async get(path, data) {
         return axios
-          .get(`${API_URL}${path}`, data)
+          .get(`${this.getApiUrl()}${path}`, data)
           .then((response) => response)
           .catch((error) => {
                 console.log(error.response);
@@ -58,11 +59,15 @@ export class Api {
 
     async post(path, data) {
         return axios
-          .post(`${API_URL}${path}`, data)
+          .post(`${this.getApiUrl()}${path}`, data)
           .then((response) => response)
           .catch((error) => {
                 console.log(error.response);
                 return Promise.resolve({data: "Error! Check the browser's console!"});
             });
+    }
+
+    getApiUrl() {
+        return API_URL_TEST; //API_URL
     }
 }

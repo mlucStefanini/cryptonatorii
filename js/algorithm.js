@@ -9,7 +9,10 @@ export class CryptoAlgorithm {
         var account = await api.account();
         console.log(account);
 
-        var history = await api.symbolHistory('BTC');
+        var history = await api.symbolHistory({
+            symbol: 'BTC',
+            interval: '1h'
+        });
         console.log(history);
 
         // Find a coin which is not USD

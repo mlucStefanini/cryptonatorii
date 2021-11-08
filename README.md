@@ -5,8 +5,10 @@ Cryptonator is a bot for trading on crypto markets
 ## Installation
 
 ```bash
-npm install
+npm ci
 ```
+
+Run ```npm install``` only if you are adding new packages to the project so that package-lock.json is regenerated.
 
 ## Usage
 

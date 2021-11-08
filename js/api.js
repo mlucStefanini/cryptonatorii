@@ -51,8 +51,8 @@ export class Api {
           .get(`${this.getApiUrl()}${path}`, data)
           .then((response) => response)
           .catch((error) => {
-                console.log(error.response);
-                return Promise.resolve({data: "Error! Check the browser's console!"});
+                console.log(error);
+                return Promise.resolve({data: `Error! GET ${path}`});
             });
     }
 
@@ -61,8 +61,8 @@ export class Api {
           .post(`${this.getApiUrl()}${path}`, data)
           .then((response) => response)
           .catch((error) => {
-                console.log(error.response);
-                return Promise.resolve({data: "Error! Check the browser's console!"});
+                console.log(error);
+                return Promise.resolve({data: `Error! POST ${path}`});
             });
     }
 

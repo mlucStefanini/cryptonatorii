@@ -1,15 +1,16 @@
 import { Api } from "./api.js";
 
-var apiKey = process.env.API_KEY;
-var api = new Api(apiKey);
-
 export class CryptoAlgorithm {
+    constructor() {
+        var apiKey = process.env.API_KEY;
+        this.api = new Api(apiKey); 
+    }
+
     async runOnce() {
-        
-        var account = await api.account();
+        var account = await this.api.account();
         console.log(account);
 
-        var history = await api.symbolHistory({
+        var history = await this.api.symbolHistory({
             symbol: 'BTC',
             interval: '1h'
         });
@@ -19,19 +20,19 @@ export class CryptoAlgorithm {
         var nonUSDTCoinToSell = account.symbols.find(p => p.quantity > 0 && p.name != "USDT");
         // If we find one we sell it
         if (nonUSDTCoinToSell !== undefined) {        
-            await api.order({ symbol: nonUSDTCoinToSell.name, side: 'SELL', quantity: nonUSDTCoinToSell.quantity });
+            await this.api.order({ symbol: nonUSDTCoinToSell.name, side: 'SELL', quantity: nonUSDTCoinToSell.quantity });
         }
         // If we don't we buy one
         else {
-            var prices = await api.prices();
+            var prices = await this.api.prices();
             prices = prices.filter(p => p.name !== "USDT");
             var rand = Math.floor(Math.random() * prices.length);
             var coinToBuy = prices[rand];
             var amountToBuy = account.symbols.find(s => s.name === "USDT").quantity / coinToBuy.value;
-            await api.order({ symbol: coinToBuy.name, side: 'BUY', quantity: amountToBuy * 0.01 });
+            await this.api.order({ symbol: coinToBuy.name, side: 'BUY', quantity: amountToBuy * 0.01 });
         }
 
-        const orderHistory = await api.orderHistory();
-        console.log(`Order History: ${orderHistory}`);
+        const orderHistory = await this.api.orderHistory();
+        console.log(`Order History: ${JSON.stringify(orderHistory)}`);
     }
 }

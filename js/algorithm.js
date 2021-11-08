@@ -8,6 +8,10 @@ export class CryptoAlgorithm {
         
         var account = await api.account();
         console.log(account);
+
+        var history = await api.symbolHistory('BTC');
+        console.log(history);
+
         // Find a coin which is not USD
         var nonUSDTCoinToSell = account.symbols.find(p => p.quantity > 0 && p.name != "USDT");
         // If we find one we sell it

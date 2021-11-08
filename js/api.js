@@ -1,6 +1,5 @@
 import axios from "axios";
 var API_URL = 'https://crypto-bot-stefanini.herokuapp.com/api';
-var API_URL_TEST = "http://localhost:3000/api";
 
 export class Api {   
     constructor(key) {
@@ -68,6 +67,6 @@ export class Api {
     }
 
     getApiUrl() {
-        return API_URL_TEST; //API_URL
+        return API_URL;
     }
 }

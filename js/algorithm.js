@@ -21,7 +21,7 @@ export class CryptoAlgorithm {
             var rand = Math.floor(Math.random() * prices.length);
             var coinToBuy = prices[rand];
             var amountToBuy = account.symbols.find(s => s.name === "USDT").quantity / coinToBuy.value;
-            await api.order({ symbol: coinToBuy.name, side: 'BUY', quantity: amountToBuy * 0.95 });
+            await api.order({ symbol: coinToBuy.name, side: 'BUY', quantity: amountToBuy * 0.01 });
         }
     }
 }

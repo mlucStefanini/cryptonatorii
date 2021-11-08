@@ -23,5 +23,8 @@ export class CryptoAlgorithm {
             var amountToBuy = account.symbols.find(s => s.name === "USDT").quantity / coinToBuy.value;
             await api.order({ symbol: coinToBuy.name, side: 'BUY', quantity: amountToBuy * 0.01 });
         }
+
+        const orderHistory = await api.orderHistory();
+        console.log(`Order History: ${orderHistory}`);
     }
 }

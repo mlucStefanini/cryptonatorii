@@ -1,6 +1,6 @@
+var env = process.env.NODE_ENV || 'development';
+
 import { CryptoAlgorithm } from './js/algorithm.js'
-import dotenv from 'dotenv';
-dotenv.config();
 let cryptoAlgorithm = new CryptoAlgorithm();
 
 //let runIntervalInMS = process.env.RUN_INTERVAL

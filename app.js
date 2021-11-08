@@ -6,3 +6,4 @@ let cryptoAlgorithm = new CryptoAlgorithm();
 let runIntervalInSeconds = process.env.RUN_INTERVAL_SECONDS
 setTimeout(cryptoAlgorithm.runOnce, runIntervalInSeconds*1000);
 
+//test commit Mircea

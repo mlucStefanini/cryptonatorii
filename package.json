@@ -9,10 +9,13 @@
     "axios": "^0.23.0"
   },
   "scripts": {
-    "start-local":"node -r dotenv/config app.js"
+    "start-local": "node -r dotenv/config app.js",
+    "test": "mocha"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0"
+    "chai": "^4.3.4",
+    "dotenv": "^10.0.0",
+    "mocha": "^9.1.3"
   },
   "engines": {
     "node": "14.17"

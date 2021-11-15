@@ -40,6 +40,6 @@ export class PeriodicRunner {
             console.error(`Error in iteration ${this.intervalCount}`, ex);
         }
         this.intervalCount++;
-        setTimeout(this.runOnce.bind(this), this.runIntervalInSeconds * 1000);
+        setInterval(this.runOnce.bind(this), this.runIntervalInSeconds * 1000);
     }
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-var API_URL = 'https://crypto-bot-stefanini.herokuapp.com/api';
+var API_URL = 'https://crypto-bot-challenge-api.herokuapp.com/api';
 
 export class Api {   
     constructor(key, debug) {

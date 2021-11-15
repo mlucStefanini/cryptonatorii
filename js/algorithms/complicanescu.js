@@ -57,7 +57,7 @@ export class Complicanescu {
                     let order = {
                         symbol: tradingRule.symbol,
                         side: 'BUY',
-                        quantity: amountAvailableToInvest / 3 / 11
+                        quantity: amountAvailableToInvest / 11
                     };
                     console.log(`[Complicanescu] placing opening order: ${JSON.stringify(order)}`);
                     let orderResponse = await this.api.order(order);

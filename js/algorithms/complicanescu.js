@@ -27,6 +27,8 @@ export class Complicanescu {
             return;
         }
 
+        let openedSymbolsCount = account.symbols.filter(x => x.quantity > 0).length;
+
         for (let i = 0; i < tradingRules.length; i++) {
             let tradingRule = tradingRules[i];
 
@@ -51,17 +53,23 @@ export class Complicanescu {
                     console.log(`[Complicanescu] placing closing order: ${JSON.stringify(order)}`);
                     let orderResponse = await this.api.order(order);
                     console.log(`[Complicanescu] orderResponse: ${JSON.stringify(orderResponse)}`);
+                    openedSymbolsCount--;
                 }
             } else {
                 if (rsi < tradingRule.smallRsi) {
+                    if (openedSymbolsCount >= 11) {
+                        console.log(`[Complicanescu] openedSymbolsCount >= 11, continue...`);
+                        continue;
+                    }
                     let order = {
                         symbol: tradingRule.symbol,
                         side: 'BUY',
-                        quantity: amountAvailableToInvest / 11
+                        quantity: amountAvailableToInvest / 11 - openedSymbolsCount
                     };
                     console.log(`[Complicanescu] placing opening order: ${JSON.stringify(order)}`);
                     let orderResponse = await this.api.order(order);
                     console.log(`[Complicanescu] orderResponse: ${JSON.stringify(orderResponse)}`);
+                    openedSymbolsCount++;
                 }
             }
 

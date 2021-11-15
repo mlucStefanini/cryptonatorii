@@ -4,7 +4,7 @@ import { ApiCache } from "./cache.js";
 import { RunContext } from "./utils.js";
 import { CandleBurner } from "./algorithms/candleBurner.js";
 import { Profitorul } from "./algorithms/profitorul.js";
-import { Complicanescu } from "./algorithms/complicanescu";
+import { Complicanescu } from "./algorithms/complicanescu.js";
 
 export class PeriodicRunner {
     constructor(debug) {
@@ -31,7 +31,7 @@ export class PeriodicRunner {
                 algorithmsToRun.push(new CandleBurner(runContext));
             if (process.env.ALG_PROFITORUL == "true")
                 algorithmsToRun.push(new Profitorul(runContext));
-            if (process.env.ALG_PROFITORUL == "true")
+            if (process.env.ALG_COMPLICANESCU == "true")
                 algorithmsToRun.push(new Complicanescu(runContext));
             for (var i = 0; i < algorithmsToRun.length; i++) {
                 await algorithmsToRun[i].runOnce();

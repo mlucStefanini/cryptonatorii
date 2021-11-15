@@ -21,6 +21,12 @@ export class Complicanescu {
         var account = await this.api.account();
         console.log(`[Complicanescu] account status: ${JSON.stringify(account)}`);
 
+        let amountAvailableToInvest = account.symbols.find(x => x.name == "USDT").quantity;
+        if (amountAvailableToInvest <= 0) {
+            console.log(`[Complicanescu] no USDT left to invest`);
+            return;
+        }
+
         for (let i = 0; i < tradingRules.length; i++) {
             let tradingRule = tradingRules[i];
 
@@ -51,7 +57,7 @@ export class Complicanescu {
                     let order = {
                         symbol: tradingRule.symbol,
                         side: 'BUY',
-                        quantity: account.estimatedValue / 3 / 11
+                        quantity: amountAvailableToInvest / 3 / 11
                     };
                     console.log(`[Complicanescu] placing opening order: ${JSON.stringify(order)}`);
                     let orderResponse = await this.api.order(order);

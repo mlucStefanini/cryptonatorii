@@ -28,7 +28,7 @@ export class Complicanescu {
                 symbol: tradingRule.symbol,
                 interval: '1h'
             });
-            console.log("[Complicanescu] got history info");
+            console.log(`[Complicanescu] got history info for ${tradingRule.symbol}`);
 
             const closingPrices = history.map(x => parseFloat(x[4]));
 
@@ -58,6 +58,8 @@ export class Complicanescu {
                     console.log(`[Complicanescu] orderResponse: ${JSON.stringify(orderResponse)}`);
                 }
             }
+
+            console.log(`[Complicanescu] done for ${tradingRule.symbol}`);
         }
     }
 

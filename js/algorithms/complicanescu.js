@@ -27,7 +27,7 @@ export class Complicanescu {
             return;
         }
 
-        let openedSymbolsCount = account.symbols.filter(x => x.quantity > 0).length;
+        let openedSymbolsCount = account.symbols.filter(x => x.quantity > 0 && x.name != "USDT").length;
 
         for (let i = 0; i < tradingRules.length; i++) {
             let tradingRule = tradingRules[i];
@@ -41,10 +41,13 @@ export class Complicanescu {
             const closingPrices = history.map(x => parseFloat(x[4]));
 
             let rsi = this.calculateRsi(closingPrices.slice(closingPrices.length - 15, closingPrices.length))
+            let currentClosingPrice = closingPrices[closingPrices.length - 1];
+            let previousClosingPrice = closingPrices[closingPrices.length - 2];
+            let secondToLastClosingPrice = closingPrices[closingPrices.length - 3];
 
             let openedPosition = account.symbols.find(x => x.name == tradingRule.symbol && x.quantity > 0);
             if (openedPosition) {
-                if (rsi > tradingRule.highRsi) {
+                if (rsi > tradingRule.highRsi || currentClosingPrice < previousClosingPrice && currentClosingPrice < secondToLastClosingPrice) {
                     let order = {
                         symbol: tradingRule.symbol,
                         side: 'SELL',
@@ -56,7 +59,7 @@ export class Complicanescu {
                     openedSymbolsCount--;
                 }
             } else {
-                if (rsi < tradingRule.smallRsi) {
+                if (rsi < tradingRule.smallRsi || currentClosingPrice > previousClosingPrice * 1.001) {
                     if (openedSymbolsCount >= 11) {
                         console.log(`[Complicanescu] openedSymbolsCount >= 11, continue...`);
                         continue;
